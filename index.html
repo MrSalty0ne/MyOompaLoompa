@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine, Ashley?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: red;
+        }
+        button {
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+        }
+        .yes-button {
+            background-color: #4CAF50; /* Green */
+            padding: 15px 32px;
+            transition: width 0.5s, height 0.5s, font-size 0.5s;
+        }
+        .no-button {
+            background-color: #f44336; /* Red */
+            padding: 15px 32px;
+            position: relative;
+        }
+        .heart {
+            display: none;
+            font-size: 48px;
+            color: #ff1493;
+            margin-top: 20px;
+        }
+        .effect {
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ashley, will you be my Valentine?</h1>
+
+<button class="yes-button" id="yesButton">Yes 😊</button>
+<button class="no-button" id="noButton">No 🙁</button>
+
+<div id="heart" class="heart">💖</div>
+
+<script>
+    let attempts = 0;
+    const messages = [
+        "Please Pookie",
+        "Pretty please",
+        "You sure Pookie Bear?",
+        "Please reconsider",
+        "Please, I'll give you one more chance",
+        "I'll give you another",
+        "Last chance",
+        "Last last chance",
+        "I'll give you a million dollars to click yes"
+    ];
+
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const body = document.body;
+
+    yesButton.addEventListener('click', function() {
+        document.getElementById('heart').style.display = 'block';
+        this.innerHTML = "Yipppppeeeeee! 💖"; // Update message
+        noButton.style.display = 'none'; // Hide the no button
+        createEffects(30, 100); // Create confetti and hearts
+    });
+
+    noButton.addEventListener('click', function() {
+        if (attempts < messages.length) {
+            yesButton.textContent = messages[attempts];
+            attempts++;
+            moveButton(this);
+            growYesButton();
+        } else {
+            this.style.display = 'none'; // Hide the no button at the last prompt
+        }
+    });
+
+    function moveButton(button) {
+        const newX = Math.random() * (window.innerWidth - button.clientWidth);
+        const newY = Math.random() * (window.innerHeight - button.clientHeight);
+        button.style.position = 'absolute';
+        button.style.left = `${newX}px`;
+        button.style.top = `${newY}px`;
+    }
+
+    function growYesButton() {
+        let newSize = parseInt(window.getComputedStyle(yesButton).fontSize) + 5;
+        yesButton.style.padding = `${newSize}px ${newSize * 2}px`;
+        yesButton.style.fontSize = `${newSize}px`;
+
+        if (attempts >= messages.length) {
+            yesButton.style.position = 'absolute';
+            yesButton.style.top = '50%';
+            yesButton.style.left = '50%';
+            yesButton.style.transform = 'translate(-50%, -50%)';
+            yesButton.style.width = '100vw';
+            yesButton.style.height = '100vh';
+            yesButton.style.borderRadius = '0';
+        }
+    }
+
+    function createEffects(numHearts, numConfetti) {
+        for (let i = 0; i < numHearts; i++) {
+            createHeart();
+        }
+        for (let i = 0; i < numConfetti; i++) {
+            createConfetti();
+        }
+    }
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.innerText = '💖';
+        heart.style.position = 'absolute';
+        var randomX = Math.floor(Math.random() * window.innerWidth);
+        var randomY = Math.floor(Math.random() * window.innerHeight);
+        heart.style.left = randomX + 'px';
+        heart.style.top = randomY + 'px';
+        document.body.appendChild(heart);
+        animateElement(heart);
+    }
+
+    function createConfetti() {
+        const confetti = document.createElement('div');
+        confetti.innerText = '🎉';
+        confetti.style.position = 'absolute';
+        confetti.style.fontSize = '16px';
+        var randomX = Math.floor(Math.random() * window.innerWidth);
+        var randomY = Math.floor(Math.random() * window.innerHeight);
+        confetti.style.left = randomX + 'px';
+        confetti.style.top = randomY + 'px';
+        document.body.appendChild(confetti);
+        animateElement(confetti);
+    }
+
+    function animateElement(element) {
+        let pos = 0;
+        const id = setInterval(frame, 10);
+        function frame() {
+            if (pos == 350) {
+                clearInterval(id);
+                element.remove(); // Remove the element after animation
+            } else {
+                pos++;
+                element.style.top = element.offsetTop - 1 + 'px';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
