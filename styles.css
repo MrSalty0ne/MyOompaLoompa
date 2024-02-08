@@ -1,0 +1,62 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffccd5;
+    font-family: 'Love Ya Like A Sister', cursive;
+    background-image: url('https://example.com/path/to/your/background-image.jpg'); /* Optional: Add a romantic background image */
+    background-size: cover;
+    color: #d6336c;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+#yesBtn, #noBtn {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #f67280;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+#yesBtn:hover, #noBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    position: fixed; /* Changed to fixed for better movement control */
+    transition: top 0.5s, left 0.5s; /* Smooth movement */
+}
+
+#heart {
+    display: none;
+    width: 100px;
+    height: 90px;
+    background-color: red;
+    position: relative;
+    margin: 20px auto;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    margin-top: 50px;
+}
+#heart:before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: 25px;
+    width: 100px;
+    height: 90px;
+    background-color: red;
+    border-radius: 50px 50px 0 0;
+}
